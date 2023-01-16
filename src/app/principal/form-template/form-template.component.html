@@ -1,0 +1,80 @@
+<main class="container">
+  <form #formulario="ngForm">
+    <section class="form-group mt-3">
+      <label for="nombre">Nombre: </label>
+      <input
+        type="text"
+        class="form-control"
+        name="nombre"
+        [(ngModel)]="registro.nombre"
+        required
+        minlength="4"
+        #name="ngModel">
+
+        <section *ngIf="name.invalid && (name.dirty||name.touched)" class="alert alert-danger mt-2">
+          <section *ngIf="name.errors?.['required']">
+            El campo es requerido
+          </section>
+          <section *ngIf="name.errors?.['minlength']">
+            El campo debe tener como minímo 10 caracteres
+          </section>
+        </section>
+    </section>
+
+    <section class="form-group mt-3">
+      <label for="email">Email:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="email"
+        [(ngModel)]="registro.email"
+        required
+        email="true"
+        #email="ngModel">
+
+        <section *ngIf="email.invalid && (email.dirty|| email.touched)" class="alert mt-2 alert-danger">
+          <section *ngIf="email.errors?.['required']">
+            El campo es requerido
+          </section>
+          <section *ngIf="email.errors?.['email']">
+            Rellenar bien el campo de email
+          </section>
+        </section>
+    </section>
+
+
+    <section class="form-group mt-3">
+      <label for="mensaje">Mensaje: </label>
+      <textarea
+        name="mensaje"
+        class="form-control"
+        required
+        maxlength="500"
+        [(ngModel)]="registro.mensaje"
+        #textarea="ngModel"
+        ></textarea>
+
+        <section *ngIf="textarea.invalid && (textarea.dirty || textarea.touched)" class="alert alert-danger mt-2">
+          <section *ngIf="textarea.errors?.['required']">
+            El campo es requerido
+          </section>
+          <section *ngIf="textarea.errors?.['maxlength']">
+            El campo no debe pasar más de los 500 caracteres
+          </section>
+        </section>
+    </section>
+
+    <section class="mt-3">
+      <button
+        class="btn btn-success"
+        type="submit"
+        (click)="Mostrar()"
+        [disabled]="!formulario.form.valid"
+        #aceptar>Aceptar</button>
+
+        <section *ngIf="conectado==true" class="alert alert-info">
+          Todos los campos han sido correctamente llenados
+        </section>
+    </section>
+  </form>
+</main>
